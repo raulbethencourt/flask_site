@@ -28,10 +28,10 @@ def register():
         if error is None:
             try:
                 db.execute(
-                    "INSERT INTO user (usernam, password) VALUES (?, ?)",
+                    "INSERT INTO user (username, password) VALUES (?, ?)",
                     (username, generate_password_hash(password)),
                 )
-                db.Commit()
+                db.commit()
             except db.IntegrityError:
                 error = f"User {username} is already registered"
             else:
@@ -55,7 +55,7 @@ def login():
 
         if user is None:
             error = "Incorrect username."
-        elif not check_password_hash(user["passwor"], password):
+        elif not check_password_hash(user["password"], password):
             error = "Incorrect password"
 
         if error is None:
